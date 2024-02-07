@@ -162,4 +162,5 @@ cursor.execute('''
 
 # Sauvegarde des modifications et fermeture de la connexion
 conn.commit()
+cursor.close()
 conn.close()
