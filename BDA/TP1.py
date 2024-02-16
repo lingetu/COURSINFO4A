@@ -11,8 +11,8 @@ cursor = conn.cursor()
 #directors "('mid',)","('pid',)"
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS directors (
-        mid INTEGER,
-        pid INTEGER,
+        mid TEXT,
+        pid TEXT,
         FOREIGN KEY (mid) REFERENCES movies(mid),
         FOREIGN KEY (pid) REFERENCES persons(pid),
         PRIMARY KEY (mid, pid)
@@ -22,8 +22,8 @@ cursor.execute('''
 #characters "('mid',)","('pid',)","('name',)"
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS characters (
-               mid INTEGER,
-               pid INTEGER,
+               mid TEXT,
+               pid TEXT,
                name TEXT,
                FOREIGN KEY (mid) REFERENCES movies(mid),
                FOREIGN KEY (pid) REFERENCES persons(pid),
@@ -33,7 +33,7 @@ cursor.execute('''
 #genres "('mid',)","('genre',)"
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS genres (
-        mid INTEGER,
+        mid TEXT,
         genre TEXT,
         FOREIGN KEY (mid) REFERENCES movies(mid),
         PRIMARY KEY (mid, genre)
@@ -43,24 +43,25 @@ cursor.execute('''
 # KnownForMovies "('mid',)","('pid',)"
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS knownformovies (
-        mid INTEGER,
-        pid INTEGER,
+        mid TEXT,
+        pid TEXT,
         FOREIGN KEY (mid) REFERENCES movies(mid),
         FOREIGN KEY (pid) REFERENCES persons(pid),
         PRIMARY KEY (mid, pid)
     )
 ''')
 # Movies :"('mid',)","('titleType',)","('primaryTitle',)","('originalTitle',)","('isAdult',)","('startYear',)","('endYear',)","('runtimeMinutes',)
+# cursor.execute('''DROP TABLE movies''')
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS movies (
-        mid INTEGER PRIMARY KEY,
+        mid TEXT PRIMARY KEY,
         titleType TEXT,
         primaryTitle TEXT,
         originalTitle TEXT,
         isAdult INTEGER,
         startYear INTEGER,
-        endYear INTEGER,
+        endYear TEXT,
         runtimeMinutes INTEGER
     )
 ''')
@@ -69,7 +70,7 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS persons (
-        pid INTEGER PRIMARY KEY,
+        pid TEXT PRIMARY KEY,
         primaryName TEXT,
         birthYear INTEGER,
         deathYear INTEGER
@@ -79,9 +80,9 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS principals (
-        mid INTEGER,
+        mid TEXT,
         ordering INTEGER,
-        pid INTEGER,
+        pid TEXT,
         category TEXT,
         job TEXT,
         FOREIGN KEY (mid) REFERENCES movies(mid),
@@ -93,7 +94,7 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS professions (
-        pid INTEGER,
+        pid TEXT,
         jobName TEXT,
         FOREIGN KEY (pid) REFERENCES persons(pid)
     )
@@ -103,7 +104,7 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS ratings (
-        mid INTEGER,
+        mid TEXT,
         averageRating REAL,
         numVotes INTEGER,
         FOREIGN KEY (mid) REFERENCES movies(mid)
@@ -114,7 +115,7 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS titles (
-        mid INTEGER,
+        mid TEXT,
         ordering INTEGER,
         title TEXT,
         region TEXT,
@@ -130,8 +131,8 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS writers (
-        mid INTEGER,
-        pid INTEGER,
+        mid TEXT,
+        pid TEXT,
         FOREIGN KEY (mid) REFERENCES movies(mid),
         FOREIGN KEY (pid) REFERENCES persons(pid),
         PRIMARY KEY (mid , pid)
